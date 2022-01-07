@@ -1,0 +1,51 @@
+// app global css in SCSS form
+// app global css in Sass form
+.custom {
+  background-color: #d0cecf;
+}
+
+@font-face {
+  font-family: Alegra;
+  //src: url(./fonts/Alegra.otf)
+  //src: url(./fonts/Nilam-Bold.ttf)
+  //src: url(./fonts/Nilam.ttf)
+  //src: url(./fonts/SweetyStrawberry.ttf)
+  //src: url(./fonts/EuropeUnderground_black.ttf)
+  //src: url(./fonts/Montserrat-Bold.ttf)
+  //src: url(./fonts/Montserrat-Regular.ttf)
+  // src: url(./fonts/Roboto-Regular.ttf)
+  src: url(./fonts/montserrat/Montserrat-Regular.otf);
+}
+
+// declare a class which applies it
+.my-font {
+  font-family: "Alegra";
+}
+
+.my-sticky-header-table {
+  /* height or max-height is important */
+  max-height: 70vh;
+
+  .q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th {
+    background-color: #fff;
+  }
+
+  thead tr th {
+    position: sticky;
+    z-index: 1;
+  }
+
+  thead tr:first-child th {
+    /* this is when the loading indicator appears */
+    top: 0
+  }
+
+  &.q-table--loading thead tr:last-child th {
+    /* height of all previous header rows */
+    top: 48px
+  }
+
+
+}
