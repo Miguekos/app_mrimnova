@@ -12,6 +12,10 @@ const routes = [
             {
                 path: 'personal', component: () => import('pages/Personal.vue')
             }
+            ,
+            {
+                path: 'productos', component: () => import('pages/Productos.vue')
+            }
         ]
     },
     {
