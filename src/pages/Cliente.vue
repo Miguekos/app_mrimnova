@@ -31,7 +31,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { headTableCliente } from "src/enums/clientePage";
+import { headTableCliente } from "src/enums/cliente";
 
 export default {
   name: "ClientComponent",
@@ -40,7 +40,7 @@ export default {
   },
   components: {
     TitleGeneric: () => import("src/components/Title"),
-    GenericTable: () => import("src/components/Tables/GenericTable.vue"),
+    GenericTable: () => import("src/components/Tables/GenericTable"),
     createClient: () => import("src/components/Client/CreateClient"),
   },
   data() {
