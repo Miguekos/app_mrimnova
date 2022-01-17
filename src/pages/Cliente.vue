@@ -6,7 +6,13 @@
       @click="create_client = !create_client"
       titulo="Clientes"
     />
-    <clientComponent :info="getClients" />
+    <GenericTable
+      :headTable="headTable"
+      :dataTable="getClients"
+      :isActions="true"
+      @handleEdit="editClient"
+      @handleDelete="deleteClient"
+    />
     <q-dialog v-model="create_client">
       <q-card>
         <q-card-section>
@@ -18,13 +24,6 @@
         <q-card-section style="max-height: 70vh" class="scroll">
           <createClient @click="create_client = !create_client" />
         </q-card-section>
-
-<!--        <q-separator />-->
-
-<!--        <q-card-actions align="right">-->
-<!--          <q-btn flat label="Decline" color="primary" v-close-popup />-->
-<!--          <q-btn flat label="Accept" color="primary" v-close-popup />-->
-<!--        </q-card-actions>-->
       </q-card>
     </q-dialog>
   </div>
@@ -32,19 +31,22 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { headTableCliente } from "src/enums/cliente";
 
 export default {
+  name: "ClientComponent",
   computed: {
     ...mapGetters("client", ["getClients"]),
   },
   components: {
-    clientComponent: () => import("src/components/Client/TablaClient"),
-    createClient: () => import("src/components/Client/CreateClient"),
     TitleGeneric: () => import("src/components/Title"),
+    GenericTable: () => import("src/components/Tables/GenericTable"),
+    createClient: () => import("src/components/Client/CreateClient"),
   },
   data() {
     return {
       create_client: false,
+      headTable: [],
     };
   },
   methods: {
@@ -65,13 +67,21 @@ export default {
         this.$store.commit("citas/dialogCrear", true);
       }
     },
+    editClient(payload) {
+      console.log("Editando cliente: ", payload);
+    },
+    deleteClient(payload) {
+      console.log("Eliminando cliente: ", payload);
+    },
   },
-  name: "ClientComponent",
   async created() {
     console.log("asd");
     this.$q.loading.show();
     await this.get_client();
     this.$q.loading.hide();
+  },
+  mounted() {
+    this.headTable = headTableCliente;
   },
 };
 </script>

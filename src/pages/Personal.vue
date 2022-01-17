@@ -1,30 +1,27 @@
 <template>
   <div class="q-pa-sm">
     <TitleGeneric
-        icon="face"
-        color="green"
-        @click="create_personal = !create_personal"
-        titulo="Personal"
+      icon="face"
+      color="green"
+      @click="create_personal = !create_personal"
+      titulo="Personal"
     />
-    <personalComponent :info="getPersonal" />
+    <GenericTable
+      :headTable="headTable"
+      :dataTable="getPersonal"
+      :isActions="true"
+      @handleEdit="editPersonal"
+      @handleDelete="deletePersonal"
+    />
     <q-dialog v-model="create_personal">
       <q-card>
         <q-card-section>
           <div class="text-h6">Crear nuevo personal</div>
         </q-card-section>
-
         <q-separator />
-
         <q-card-section style="max-height: 70vh" class="scroll">
           <createPersonal @click="create_personal = !create_personal" />
         </q-card-section>
-
-        <!--        <q-separator />-->
-
-        <!--        <q-card-actions align="right">-->
-        <!--          <q-btn flat label="Decline" color="primary" v-close-popup />-->
-        <!--          <q-btn flat label="Accept" color="primary" v-close-popup />-->
-        <!--        </q-card-actions>-->
       </q-card>
     </q-dialog>
   </div>
@@ -32,19 +29,22 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { headTablePersonal } from "src/enums/personal";
 
 export default {
+   name: "PersoalComponent",
   computed: {
     ...mapGetters("personal", ["getPersonal"]),
   },
   components: {
-    personalComponent: () => import("src/components/Personal/TablaPersonal"),
-    createPersonal: () => import("src/components/Personal/CreatePersonal"),
     TitleGeneric: () => import("src/components/Title"),
+    GenericTable: () => import("src/components/Tables/GenericTable"),
+    createPersonal: () => import("src/components/Personal/CreatePersonal"),
   },
   data() {
     return {
       create_personal: false,
+      headTable: [],
     };
   },
   methods: {
@@ -65,12 +65,20 @@ export default {
         this.$store.commit("citas/dialogCrear", true);
       }
     },
-  },
-  name: "PersoalComponent",
+    editPersonal(payload) {
+      console.log("Editando cliente: ", payload);
+    },
+    deletePersonal(payload) {
+      console.log("Eliminando cliente: ", payload);
+    },
+  }, 
   async created() {
     this.$q.loading.show();
     await this.get_personal();
     this.$q.loading.hide();
+  },
+  mounted() {
+    this.headTable = headTablePersonal;
   },
 };
 </script>

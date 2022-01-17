@@ -1,5 +1,9 @@
 <template>
-  <q-layout style="background-color: #ecebe6" class="my-font" view="hHh Lpr lFf">
+  <q-layout
+    style="background-color: #ecebe6"
+    class="my-font"
+    view="hHh Lpr lFf"
+  >
     <q-header elevated>
       <q-toolbar style="background-color: #1e1966; color: #ffcb01">
         <q-btn
@@ -13,7 +17,6 @@
 
         <q-img width="5%" src="Logo_toolbar.png"></q-img>
         <q-toolbar-title class="text-bold" style="padding-top: 2px">
-
           MR INNOVA ADMIN
         </q-toolbar-title>
 
@@ -21,11 +24,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      bordered
-      content-class="bg-grey-1"
-    >
+    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-1">
       <div class="full-height" :class="$q.dark.isActive ? 'drawer_dark' : ''">
         <div style="height: 85vh; padding: 10px">
           <!--          <q-toolbar>-->
@@ -35,6 +34,46 @@
           <hr />
           <q-scroll-area style="height: 100%">
             <q-list padding>
+              <!-- AUTENTICACIÓN Y AUTORIZACIÓN -->
+              <q-expansion-item
+                class="q-ma-sm navigation-item"
+                expand-separator
+                icon="accessibility"
+                label="Autenticación y Autorización"
+                :content-inset-level="0.5"
+              >
+                <q-item
+                  class="q-ma-sm navigation-item"
+                  clickable
+                  active-class="tab-active"
+                  v-ripple
+                  exact
+                  @click="URL('/grupos')"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="people" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>Grupos</q-item-label>
+                  </q-item-section>
+                </q-item>
+                <q-item
+                  class="q-ma-sm navigation-item"
+                  clickable
+                  active-class="tab-active"
+                  v-ripple
+                  exact
+                  @click="URL('/usuarios')"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="people" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>Usuarios</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-expansion-item>
+
               <!-- BASE DE DATOS -->
               <q-expansion-item
                 class="q-ma-sm navigation-item"
@@ -86,7 +125,7 @@
                 </q-item>
               </q-expansion-item>
 
-              <!-- GESTION HUMANA -->
+              <!-- INVENTARIO -->
               <q-expansion-item
                 class="q-ma-sm navigation-item"
                 expand-separator
@@ -125,24 +164,72 @@
                     <q-item-label>Servicios</q-item-label>
                   </q-item-section>
                 </q-item>
+                <q-item
+                  class="q-ma-sm navigation-item"
+                  clickable
+                  active-class="tab-active"
+                  v-ripple
+                  exact
+                  @click="URL('/facturas')"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="info" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>Facturas</q-item-label>
+                  </q-item-section>
+                </q-item>
               </q-expansion-item>
 
-              <!-- USUARIOS -->
-              <q-item
+              <!-- TOKEN DE AUTENTICACIÓN -->
+              <q-expansion-item
                 class="q-ma-sm navigation-item"
-                clickable
-                active-class="tab-active"
-                v-ripple
-                exact
-                @click="URL('/cliente')"
+                expand-separator
+                icon="accessibility"
+                label="Token de Autenticación"
+                :content-inset-level="0.5"
               >
-                <q-item-section avatar>
-                  <q-icon name="people" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label>Usuarios</q-item-label>
-                </q-item-section>
-              </q-item>
+                <q-item
+                  class="q-ma-sm navigation-item"
+                  clickable
+                  active-class="tab-active"
+                  v-ripple
+                  exact
+                  @click="URL('/tokens')"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="people" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>Tokens</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-expansion-item>
+
+              <!-- VENTAS -->
+              <q-expansion-item
+                class="q-ma-sm navigation-item"
+                expand-separator
+                icon="accessibility"
+                label="Venta"
+                :content-inset-level="0.5"
+              >
+                <q-item
+                  class="q-ma-sm navigation-item"
+                  clickable
+                  active-class="tab-active"
+                  v-ripple
+                  exact
+                  @click="URL('/ventas')"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="people" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>Ventas</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-expansion-item>
 
               <!-- LOGOUT -->
               <q-item
