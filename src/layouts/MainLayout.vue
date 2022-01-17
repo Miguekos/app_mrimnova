@@ -134,7 +134,7 @@
                 active-class="tab-active"
                 v-ripple
                 exact
-                @click="URL('/cliente')"
+                @click="URL('/usuarios')"
               >
                 <q-item-section avatar>
                   <q-icon name="people" />
