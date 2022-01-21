@@ -74,14 +74,6 @@
               label="Pago a credito"
               left-label
           />
-          <!--          <q-input-->
-          <!--              filled-->
-          <!--              v-model="form.payment_to_credit"-->
-          <!--              label="pago a credito"-->
-          <!--              hint="Name and surname"-->
-          <!--              lazy-rules-->
-          <!--              :rules="[(val) => (val && val.length > 0) || 'Campo Obligatorio']"-->
-          <!--          />-->
         </div>
         <div class="col-xs-12 col-md-4 q-pa-sm text-center">
           <q-toggle
@@ -89,14 +81,6 @@
               label="Pago efectivo"
               left-label
           />
-          <!--          <q-input-->
-          <!--              filled-->
-          <!--              v-model="form.cash_payment"-->
-          <!--              label="Pago efectivo"-->
-          <!--              hint="Pago efectivo"-->
-          <!--              lazy-rules-->
-          <!--              :rules="[(val) => (val && val.length > 0) || 'Campo Obligatorio']"-->
-          <!--          />-->
         </div>
         <div class="col-xs-12 col-md-4 q-pa-sm text-center">
           <q-toggle
@@ -104,14 +88,6 @@
               label="Notificacion"
               left-label
           />
-          <!--          <q-input-->
-          <!--              filled-->
-          <!--              v-model="form.payment_notifications"-->
-          <!--              label="Activar notificacion"-->
-          <!--              hint="Name and surname"-->
-          <!--              lazy-rules-->
-          <!--              :rules="[(val) => (val && val.length > 0) || 'Campo Obligatorio']"-->
-          <!--          />-->
         </div>
       </div>
 
@@ -212,20 +188,6 @@ export default {
       this.accept = false;
     },
     createValue(val, done) {
-      // Calling done(var) when new-value-mode is not set or "add", or done(var, "add") adds "var" content to the model
-      // and it resets the input textbox to empty string
-      // ----
-      // Calling done(var) when new-value-mode is "add-unique", or done(var, "add-unique") adds "var" content to the model
-      // only if is not already set
-      // and it resets the input textbox to empty string
-      // ----
-      // Calling done(var) when new-value-mode is "toggle", or done(var, "toggle") toggles the model with "var" content
-      // (adds to model if not already in the model, removes from model if already has it)
-      // and it resets the input textbox to empty string
-      // ----
-      // If "var" content is undefined/null, then it doesn't tampers with the model
-      // and only resets the input textbox to empty string
-
       if (val.length > 0) {
         if (!stringOptions.includes(val)) {
           stringOptions.push(val);

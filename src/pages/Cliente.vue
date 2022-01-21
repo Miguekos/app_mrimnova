@@ -3,7 +3,7 @@
     <TitleGeneric
       icon="group"
       color="red"
-      @click="create_client = !create_client"
+      @click="isModalCreate = true"
       titulo="Clientes"
     />
     <GenericTable
@@ -13,16 +13,18 @@
       @handleEdit="editClient"
       @handleDelete="deleteClient"
     />
-    <q-dialog v-model="create_client">
+    <q-dialog v-model="isModalCreate">
       <q-card>
         <q-card-section>
           <div class="text-h6">Crear nuevo cliente</div>
         </q-card-section>
-
         <q-separator />
-
         <q-card-section style="max-height: 70vh" class="scroll">
-          <createClient @click="create_client = !create_client" />
+          <ClientForm
+            :typeDocuments="typeDocuments"
+            @handleSubmit="addClient"
+            @handleCancel="isModalCreate = false"
+          />
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -41,41 +43,48 @@ export default {
   components: {
     TitleGeneric: () => import("src/components/Title"),
     GenericTable: () => import("src/components/Tables/GenericTable"),
-    createClient: () => import("src/components/Client/CreateClient"),
+    ClientForm: () => import("src/components/Forms/ClientForm"),
   },
   data() {
     return {
-      create_client: false,
+      isModalCreate: false,
       headTable: [],
+      typeDocuments: [
+        {
+          label: "DNI",
+          value: 1,
+        },
+        {
+          label: "RUC",
+          value: 2,
+        },
+      ],
+      defaultForm: {
+        name: "Diego U.",
+        address: "Av. Santa Gertrudis",
+        email: "diegourbina1284@gmail.com",
+        documentType: {
+          label: "DNI",
+          value: 0,
+        },
+        document: "77344583",
+        perfil: null,
+      },
     };
   },
   methods: {
     ...mapActions("client", ["get_client"]),
-    click_title(val) {
-      console.log("Boton en Citas");
-      this.tipo = val;
-      if (val === 1) {
-        console.log("Boton en Citas 1");
-        this.dialogCrear = true;
-        console.log("se preciono el boton");
-        this.$store.commit("citas/dialogCrear", true);
-      } else if (val === 2) {
-        this.dataEdit = this.$store.state.citas.dataEdit;
-        console.log("Boton en Citas 2");
-        this.dialogCrear = true;
-        console.log("se preciono el boton");
-        this.$store.commit("citas/dialogCrear", true);
-      }
-    },
     editClient(payload) {
       console.log("Editando cliente: ", payload);
     },
     deleteClient(payload) {
       console.log("Eliminando cliente: ", payload);
     },
+    addClient(payload) {
+      console.log("Agregando cliente: ", payload);
+    },
   },
   async created() {
-    console.log("asd");
     this.$q.loading.show();
     await this.get_client();
     this.$q.loading.hide();
