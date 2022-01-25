@@ -12,9 +12,13 @@
               <q-select
                 outlined
                 dense
-                v-model="form.documentType"
+                v-model="form.type_document"
                 :options="typeDocuments"
+                option-value="value"
+                option-label="label"
                 label="Tipo de documento"
+                emit-value
+                map-options
                 :readonly="readOnly"
                 :error="invalid && validated"
                 :error-message="errors[0]"
@@ -64,7 +68,7 @@
               <q-input
                 outlined
                 dense
-                v-model="form.address"
+                v-model="form.address_main"
                 label="Dirección"
                 :readonly="readOnly"
                 :error="invalid && validated"
@@ -96,7 +100,7 @@
               rules="required"
             >
               <q-file
-                v-model="form.perfil"
+                v-model="profile"
                 outlined
                 dense
                 label="Perfil"
@@ -124,6 +128,7 @@
             label="Guardar"
             type="submit"
             color="primary"
+            :loading="loading"
           />
         </div>
       </q-form>
@@ -132,6 +137,7 @@
 </template>
 
 <script>
+import { clientSchema } from "src/mixins/forms/clientSchema";
 import { required, email, numeric, length } from "vee-validate/dist/rules";
 import {
   extend,
@@ -162,18 +168,20 @@ export default {
     typeDocuments: Array,
     defaultForm: Object,
     readOnly: Boolean,
+    loading: Boolean,
   },
+  mixins: [clientSchema],
   components: {
     ValidationProvider,
     ValidationObserver,
   },
   computed: {
     documentLength() {
-      if (this.form.documentType) {
-        switch (this.form.documentType.value) {
-          case 1:
+      if (this.form.type_document) {
+        switch (this.form.type_document) {
+          case "0":
             return 8;
-          case 2:
+          case "1":
             return 11;
           default:
             return 0;
@@ -185,27 +193,7 @@ export default {
   },
   data() {
     return {
-      form: {
-        name: null,
-        address: null,
-        email: null,
-        documentType: {
-          label: "DNI",
-          value: 1,
-        },
-        perfil: null,
-      },
-      /* form: {
-        name: "Miguel C",
-        address: "Los Olivos",
-        email: "miguekos1233@gmail.com",
-        documentType: {
-          label: "DNI",
-          value: 1,
-        },
-        document: "001811529",
-        perfil: null,
-      }, */
+      profile: null,
     };
   },
   methods: {

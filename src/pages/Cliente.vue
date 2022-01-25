@@ -10,20 +10,54 @@
       :headTable="headTable"
       :dataTable="getClients"
       :isActions="true"
-      @handleEdit="editClient"
-      @handleDelete="deleteClient"
+      @handleView="openViewModal"
+      @handleEdit="openEditModal"
+      @handleDelete="submitDeleteClient"
     />
     <q-dialog v-model="isModalCreate">
       <q-card>
         <q-card-section>
-          <div class="text-h6">Crear nuevo cliente</div>
+          <div class="text-h6">Agregar cliente</div>
         </q-card-section>
         <q-separator />
         <q-card-section style="max-height: 70vh" class="scroll">
           <ClientForm
             :typeDocuments="typeDocuments"
-            @handleSubmit="addClient"
+            :loading="loading"
+            @handleSubmit="submitAddClient"
             @handleCancel="isModalCreate = false"
+          />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="isModalEdit">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Editar cliente</div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section style="max-height: 70vh" class="scroll">
+          <ClientForm
+            :typeDocuments="typeDocuments"
+            :defaultForm="defaultFormClient"
+            @handleSubmit="submitEditClient"
+            @handleCancel="closeEditModal"
+          />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="isModalDetails">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Datos del cliente</div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section style="max-height: 70vh" class="scroll">
+          <ClientForm
+            :readOnly="true"
+            :typeDocuments="typeDocuments"
+            :defaultForm="defaultFormClient"
+            @handleCancel="closeViewModal"
           />
         </q-card-section>
       </q-card>
@@ -33,7 +67,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { headTableCliente } from "src/enums/cliente";
+import { headTableCliente, typeDocuments } from "src/enums/cliente";
 
 export default {
   name: "ClientComponent",
@@ -48,49 +82,52 @@ export default {
   data() {
     return {
       isModalCreate: false,
-      headTable: [],
-      typeDocuments: [
-        {
-          label: "DNI",
-          value: 1,
-        },
-        {
-          label: "RUC",
-          value: 2,
-        },
-      ],
-      defaultForm: {
-        name: "Diego U.",
-        address: "Av. Santa Gertrudis",
-        email: "diegourbina1284@gmail.com",
-        documentType: {
-          label: "DNI",
-          value: 0,
-        },
-        document: "77344583",
-        perfil: null,
-      },
+      isModalEdit: false,
+      isModalDetails: false,
+      headTable: headTableCliente,
+      typeDocuments,
+      defaultFormClient: null,
+      loading: false,
     };
   },
   methods: {
-    ...mapActions("client", ["get_client"]),
-    editClient(payload) {
+    ...mapActions("client", ["get_client", "post_client"]),
+    openViewModal(payload) {
+      this.isModalDetails = true;
+      this.defaultFormClient = { ...payload };
+    },
+    openEditModal(payload) {
+      this.isModalEdit = true;
+      this.defaultFormClient = { ...payload };
+    },
+    closeViewModal() {
+      this.isModalDetails = false;
+      this.defaultFormClient = null;
+    },
+    closeEditModal() {
+      this.isModalEdit = false;
+      this.defaultFormClient = null;
+    },
+    async submitAddClient(payload) {
+      try {
+        this.loading = true;
+        await this.post_client(payload);
+        this.loading = false;
+      } catch (error) {
+        this.loading = false;
+      }
+    },
+    submitEditClient(payload) {
       console.log("Editando cliente: ", payload);
     },
-    deleteClient(payload) {
+    submitDeleteClient(payload) {
       console.log("Eliminando cliente: ", payload);
-    },
-    addClient(payload) {
-      console.log("Agregando cliente: ", payload);
     },
   },
   async created() {
     this.$q.loading.show();
     await this.get_client();
     this.$q.loading.hide();
-  },
-  mounted() {
-    this.headTable = headTableCliente;
   },
 };
 </script>

@@ -25,3 +25,21 @@ export const headTableCliente = [
     label: "Acciones",
   },
 ];
+
+export const typeDocuments = [
+  {
+    label: "DNI",
+    value: "0",
+  },
+  {
+    label: "RUC",
+    value: "1",
+  },
+];
+
+export const titleModals = {
+  createClient: "",
+  editClient: "",
+  detailsClient: ""
+
+}

@@ -28,7 +28,7 @@ const actions = {
     },
     async post_client({commit}, payload) {
         console.log(payload)
-        const response = await axiosInstance.put(`/mrinnova/v2/clientes/`, payload);
+        const response = await axiosInstance.post(`/mrinnova/v2/clientes/`, payload);
         return response.data;
     },
     async destroy_client({commit}, payload) {

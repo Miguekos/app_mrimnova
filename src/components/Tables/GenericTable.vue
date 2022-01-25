@@ -19,6 +19,13 @@
             <q-btn
               round
               size="xs"
+              color="blue"
+              icon="visibility"
+              @click="clickView(props.row)"
+            />
+            <q-btn
+              round
+              size="xs"
               color="orange"
               icon="edit"
               @click="clickEdit(props.row)"
@@ -65,6 +72,9 @@ export default {
     };
   },
   methods: {
+    clickView(payload) {
+      this.$emit("handleView", payload);
+    },
     clickEdit(payload) {
       this.$emit("handleEdit", payload);
     },
