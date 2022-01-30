@@ -8,14 +8,6 @@ const routes = [
         component: () => import("pages/Index.vue"),
       },
       {
-        path: "grupos",
-        component: () => import("pages/Grupos.vue"),
-      },
-      {
-        path: "usuarios",
-        component: () => import("pages/Usuarios.vue"),
-      },
-      {
         path: "cliente",
         component: () => import("pages/Cliente.vue"),
       },
@@ -34,10 +26,6 @@ const routes = [
       {
         path: "facturas",
         component: () => import("pages/Facturas.vue"),
-      },
-      {
-        path: "tokens",
-        component: () => import("pages/Tokens.vue"),
       },
       {
         path: "ventas",

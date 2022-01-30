@@ -121,7 +121,7 @@
             color="red"
             flat
             @click="clickCancel"
-            class="q-ml-sm"
+            class="q-ml-sm q-mr-md"
           />
           <q-btn
             v-if="!readOnly"
