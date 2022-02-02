@@ -2,9 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // import example from './module-example'
-import auth from './store-auth'
-import client from './store-client'
-import personal from './store-personal'
+import auth from './store-auth';
+import client from './store-client';
+import personal from './store-personal';
+import product from './store-product';
+import invoice from './store-invoice';
 
 Vue.use(Vuex)
 
@@ -23,7 +25,9 @@ export default function (/* { ssrContext } */) {
             // example
             auth,
             client,
-            personal
+            personal,
+            product,
+            invoice
         },
 
         // enable strict mode (adds overhead!)
