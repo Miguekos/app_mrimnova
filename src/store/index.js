@@ -7,6 +7,7 @@ import client from './store-client';
 import personal from './store-personal';
 import product from './store-product';
 import invoice from './store-invoice';
+import service from './store-service';
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ export default function (/* { ssrContext } */) {
             client,
             personal,
             product,
-            invoice
+            invoice,
+            service
         },
 
         // enable strict mode (adds overhead!)

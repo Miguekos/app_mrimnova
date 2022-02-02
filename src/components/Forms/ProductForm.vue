@@ -408,7 +408,6 @@ export default {
       this.$emit("handleCancel");
     },
     createValue(val, done) {
-      console.log("val: ", val);
       done(val, "add-unique");
     },
     filterFn(val, update) {

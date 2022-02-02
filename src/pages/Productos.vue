@@ -120,7 +120,6 @@ export default {
       this.defaultFormProduct = null;
     },
     async submitAddProduct(payload) {
-      console.log("Agregando producto: ", payload);
       try {
         this.loading = true;
         await this.actionCreateProduct(payload);
@@ -134,7 +133,6 @@ export default {
       }
     },
     async submitEditProduct(payload) {
-      console.log("Editando producto: ", payload);
        try {
         this.loading = true;
         await this.actionEditProduct(payload);
@@ -149,7 +147,6 @@ export default {
       }
     },
     submitDeleteProduct(payload) {
-      console.log("Eliminando producto: ", payload);
       this.$q
         .dialog({
           title: "Confirmar eliminación",
