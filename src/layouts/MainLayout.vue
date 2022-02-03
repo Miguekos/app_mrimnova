@@ -34,45 +34,6 @@
           <hr />
           <q-scroll-area style="height: 100%">
             <q-list padding>
-              <!-- AUTENTICACIÓN Y AUTORIZACIÓN -->
-              <q-expansion-item
-                class="q-ma-sm navigation-item"
-                expand-separator
-                icon="accessibility"
-                label="Autenticación y Autorización"
-                :content-inset-level="0.5"
-              >
-                <q-item
-                  class="q-ma-sm navigation-item"
-                  clickable
-                  active-class="tab-active"
-                  v-ripple
-                  exact
-                  @click="URL('/grupos')"
-                >
-                  <q-item-section avatar>
-                    <q-icon name="people" />
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label>Grupos</q-item-label>
-                  </q-item-section>
-                </q-item>
-                <q-item
-                  class="q-ma-sm navigation-item"
-                  clickable
-                  active-class="tab-active"
-                  v-ripple
-                  exact
-                  @click="URL('/usuarios')"
-                >
-                  <q-item-section avatar>
-                    <q-icon name="people" />
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label>Usuarios</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-expansion-item>
 
               <!-- BASE DE DATOS -->
               <q-expansion-item
@@ -177,31 +138,6 @@
                   </q-item-section>
                   <q-item-section>
                     <q-item-label>Facturas</q-item-label>
-                  </q-item-section>
-                </q-item>
-              </q-expansion-item>
-
-              <!-- TOKEN DE AUTENTICACIÓN -->
-              <q-expansion-item
-                class="q-ma-sm navigation-item"
-                expand-separator
-                icon="accessibility"
-                label="Token de Autenticación"
-                :content-inset-level="0.5"
-              >
-                <q-item
-                  class="q-ma-sm navigation-item"
-                  clickable
-                  active-class="tab-active"
-                  v-ripple
-                  exact
-                  @click="URL('/tokens')"
-                >
-                  <q-item-section avatar>
-                    <q-icon name="people" />
-                  </q-item-section>
-                  <q-item-section>
-                    <q-item-label>Tokens</q-item-label>
                   </q-item-section>
                 </q-item>
               </q-expansion-item>
