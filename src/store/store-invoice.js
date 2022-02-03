@@ -1,4 +1,9 @@
-import { apiGetInvoice } from "src/api/invoice";
+import {
+  apiGetInvoice,
+  apiEditInvoice,
+  apiDeleteInvoice,
+  apiCreateInvoice,
+} from "src/api/invoice";
 
 const state = {
   listInvoices: [],
@@ -14,6 +19,18 @@ const actions = {
   async actionGetInvoice({ commit }) {
     const responseGetInvoice = await apiGetInvoice();
     commit("SET_INVOICE", responseGetInvoice);
+  },
+  async actionCreateInvoice({ commit }, paylaod) {
+    const responseCreateInvoice = await apiCreateInvoice(paylaod);
+    return responseCreateInvoice;
+  },
+  async actionEditInvoice({ commit }, payload) {
+    const responseEditInvoice = await apiEditInvoice(payload);
+    return responseEditInvoice;
+  },
+  async actionDeleteInvoice({ commit }, paylaod) {
+    const responseDeleteInvoice = await apiDeleteInvoice(paylaod);
+    return responseDeleteInvoice;
   },
 };
 
