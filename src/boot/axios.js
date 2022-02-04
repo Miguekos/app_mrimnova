@@ -58,7 +58,7 @@ const axiosInstance = axios.create({
     // }
     // baseURL: "http://172.105.17.123:4100"
     // baseURL: "http://192.168.0.32:9876"
-    baseURL: "http://127.0.0.1:8000",
+    baseURL: "https://api.apps.com.pe/",
     // baseURL: "https://api.apps.com.pe"
     // baseURL: "http://192.168.0.33:9876"
     // baseURL: `${process.env.API_URL}`,
