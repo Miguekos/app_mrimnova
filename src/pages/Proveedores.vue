@@ -1,31 +1,30 @@
 <template>
   <div class="q-pa-sm">
     <TitleGeneric
-      icon="face"
-      color="green"
+      icon="group"
+      color="red"
       @click="isModalCreate = true"
-      titulo="Facturas"
+      titulo="Proveedores"
     />
     <GenericTable
       :headTable="headTable"
-      :dataTable="dataTableInvoice"
+      :dataTable="dataTableSupplier"
       :isActions="true"
       @handleView="openViewModal"
       @handleEdit="openEditModal"
-      @handleDelete="submitDeleteInvoice"
+      @handleDelete="submitDeleteSupplier"
     />
     <q-dialog v-model="isModalCreate">
       <q-card>
         <q-card-section>
-          <div class="text-h6">{{ titleModals.createInvoice }}</div>
+          <div class="text-h6">{{ titleModals.createSupplier }}</div>
         </q-card-section>
         <q-separator />
         <q-card-section style="max-height: 70vh" class="scroll">
-          <InvoiceForm
+          <SupplierForm
             :typeDocuments="typeDocuments"
-            :supplierList="getSuppliers"
             :loading="loading"
-            @handleSubmit="submitAddInvoice"
+            @handleSubmit="submitAddSupplier"
             @handleCancel="closeAddModal"
           />
         </q-card-section>
@@ -34,16 +33,15 @@
     <q-dialog v-model="isModalEdit">
       <q-card>
         <q-card-section>
-          <div class="text-h6">{{ titleModals.editInvoice }}</div>
+          <div class="text-h6">{{ titleModals.editSupplier }}</div>
         </q-card-section>
         <q-separator />
         <q-card-section style="max-height: 70vh" class="scroll">
-          <InvoiceForm
+          <SupplierForm
             :typeDocuments="typeDocuments"
-            :supplierList="getSuppliers"
+            :defaultForm="defaultFormSupplier"
             :loading="loading"
-            :defaultForm="defaultFormInvoice"
-            @handleSubmit="submitEditInvoice"
+            @handleSubmit="submitEditSupplier"
             @handleCancel="closeEditModal"
           />
         </q-card-section>
@@ -52,16 +50,14 @@
     <q-dialog v-model="isModalDetails">
       <q-card>
         <q-card-section>
-          <div class="text-h6">{{ titleModals.detailsInvoice }}</div>
+          <div class="text-h6">{{ titleModals.detailsSupplier }}</div>
         </q-card-section>
         <q-separator />
         <q-card-section style="max-height: 70vh" class="scroll">
-          <InvoiceForm
-            :typeDocuments="typeDocuments"
-            :supplierList="getSuppliers"
-            :loading="loading"
+          <SupplierForm
             :readOnly="true"
-            :defaultForm="defaultFormInvoice"
+            :typeDocuments="typeDocuments"
+            :defaultForm="defaultFormSupplier"
             @handleCancel="closeViewModal"
           />
         </q-card-section>
@@ -73,24 +69,24 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import {
-  headTableFactura,
+  headTableProveedor,
   titleModals,
-  notifyInvoice,
-} from "src/enums/factura";
+  notifySupplier,
+} from "src/enums/proveedor";
 import { typeDocuments } from "src/enums/shared";
+
 export default {
-  name: "InvoicesComponent",
+  name: "SupplierComponent",
   computed: {
-    ...mapGetters("invoice", ["getInvoice"]),
     ...mapGetters("supplier", ["getSuppliers"]),
-    dataTableInvoice() {
-      if (this.getInvoice.length > 0) {
-        const newGetInvoice = this.getInvoice.map((invoice) => {
+    dataTableSupplier() {
+      if (this.getSuppliers.length > 0) {
+        const newGetInvoice = this.getSuppliers.map((supplier) => {
           const selectDocument = this.typeDocuments.filter(
-            (document) => document.value === invoice.type_invoice
+            (document) => document.value === supplier.type_document
           );
           return {
-            ...invoice,
+            ...supplier,
             label_document: selectDocument[0] ? selectDocument[0].label : null,
           };
         });
@@ -101,108 +97,101 @@ export default {
     },
   },
   components: {
-    TitleGeneric: () => import("src/components/Title.vue"),
+    TitleGeneric: () => import("src/components/Title"),
     GenericTable: () => import("src/components/Tables/GenericTable"),
-    InvoiceForm: () => import("src/components/Forms/InvoiceForm"),
+    SupplierForm: () => import("src/components/Forms/SupplierForm"),
   },
   data() {
     return {
-      headTable: headTableFactura,
       isModalCreate: false,
       isModalEdit: false,
       isModalDetails: false,
-      defaultFormInvoice: null,
+      headTable: headTableProveedor,
+      typeDocuments,
+      defaultFormSupplier: null,
       loading: false,
       titleModals,
-      typeDocuments,
     };
   },
   methods: {
-    ...mapActions("invoice", [
-      "actionGetInvoice",
-      "actionCreateInvoice",
-      "actionEditInvoice",
-      "actionDeleteInvoice",
+    ...mapActions("supplier", [
+      "actionGetSupplier",
+      "actionCreateSupplier",
+      "actionEditSupplier",
+      "actionDeleteSupplier",
     ]),
-    ...mapActions("supplier", ["actionGetSupplier"]),
     openViewModal(payload) {
       this.isModalDetails = true;
-      this.defaultFormInvoice = { ...payload };
+      this.defaultFormSupplier = { ...payload };
     },
     openEditModal(payload) {
       this.isModalEdit = true;
-      this.defaultFormInvoice = { ...payload };
+      this.defaultFormSupplier = { ...payload };
     },
     closeAddModal() {
       this.isModalCreate = false;
-      this.defaultFormInvoice = null;
+      this.defaultFormSupplier = null;
     },
     closeViewModal() {
       this.isModalDetails = false;
-      this.defaultFormInvoice = null;
+      this.defaultFormSupplier = null;
     },
     closeEditModal() {
       this.isModalEdit = false;
-      this.defaultFormInvoice = null;
+      this.defaultFormSupplier = null;
     },
-    async submitAddInvoice(payload) {
-      console.log("Agregando factura: ", payload);
+    async submitAddSupplier(payload) {
       try {
         this.loading = true;
-        await this.actionCreateInvoice(payload);
+        await this.actionCreateSupplier(payload);
         this.loading = false;
         this.closeAddModal();
-        this.$q.notify(notifyInvoice.successAddInvoice);
-        await this.actionGetInvoice();
+        this.$q.notify(notifySupplier.successAddSupplier);
+        await this.actionGetSupplier();
       } catch (error) {
         this.loading = false;
-        this.$q.notify(notifyInvoice.errorAddInvoice);
+        this.$q.notify(notifySupplier.errorAddSupplier);
       }
     },
-    async submitEditInvoice(payload) {
-      console.log("Editando factura: ", payload);
+    async submitEditSupplier(payload) {
       try {
+        delete payload.profile;
         this.loading = true;
-        await this.actionEditInvoice(payload);
+        await this.actionEditSupplier(payload);
         this.loading = false;
         this.closeEditModal();
-        this.$q.notify(notifyInvoice.successEditInvoice);
-        await this.actionGetInvoice();
+        this.$q.notify(notifySupplier.successEditSupplier);
+        await this.actionGetSupplier();
       } catch (error) {
-        console.log("error: ", error);
         this.loading = false;
-        this.$q.notify(notifyInvoice.errorEditInvoice);
+        this.$q.notify(notifySupplier.errorEditSupplier);
       }
     },
-    submitDeleteInvoice(payload) {
-      console.log("Eliminando factura: ", payload);
+    submitDeleteSupplier(payload) {
       this.$q
         .dialog({
           title: "Confirmar eliminación",
-          message: `Estas seguro que deseas eliminar la factura "${payload.codigo}"`,
+          message: `Estas seguro que deseas eliminar al proveedor "${payload.name}"`,
           cancel: true,
           persistent: true,
         })
         .onOk(async () => {
           try {
             this.$q.loading.show();
-            await this.actionDeleteInvoice(payload);
-            await this.actionGetInvoice();
+            await this.actionDeleteSupplier(payload);
+            await this.actionGetSupplier();
             this.$q.loading.hide();
           } catch (error) {
             this.$q.loading.hide();
-            this.$q.notify(notifyInvoice.errorDeleteInvoice);
+            this.$q.notify(notifySupplier.errorDeleteSupplier);
           }
         });
     },
   },
   async created() {
     this.$q.loading.show();
-    await this.actionGetInvoice();
     await this.actionGetSupplier();
     this.$q.loading.hide();
   },
 };
 </script>
-
-<style></style>
