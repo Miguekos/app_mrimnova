@@ -24,6 +24,7 @@
               @click="clickView(props.row)"
             />
             <q-btn
+              v-if="!notEdit"
               round
               size="xs"
               color="orange"
@@ -59,6 +60,7 @@ export default {
     headTable: Array,
     dataTable: Array,
     isActions: Boolean,
+    notEdit: Boolean,
   },
   data() {
     return {

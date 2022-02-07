@@ -24,6 +24,10 @@ const routes = [
         component: () => import("pages/Servicios.vue"),
       },
       {
+        path: "proveedores",
+        component: () => import("pages/Proveedores.vue"),
+      },
+      {
         path: "facturas",
         component: () => import("pages/Facturas.vue"),
       },

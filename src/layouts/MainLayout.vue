@@ -131,6 +131,21 @@
                   active-class="tab-active"
                   v-ripple
                   exact
+                  @click="URL('/proveedores')"
+                >
+                  <q-item-section avatar>
+                    <q-icon name="info" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>Proveedores</q-item-label>
+                  </q-item-section>
+                </q-item>
+                <q-item
+                  class="q-ma-sm navigation-item"
+                  clickable
+                  active-class="tab-active"
+                  v-ripple
+                  exact
                   @click="URL('/facturas')"
                 >
                   <q-item-section avatar>
