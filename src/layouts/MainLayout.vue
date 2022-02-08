@@ -62,7 +62,7 @@
               </q-expansion-item>
 
               <!-- GESTION HUMANA -->
-              <q-expansion-item
+              <!-- <q-expansion-item
                 class="q-ma-sm navigation-item"
                 expand-separator
                 icon="accessibility"
@@ -84,7 +84,7 @@
                     <q-item-label>Personal</q-item-label>
                   </q-item-section>
                 </q-item>
-              </q-expansion-item>
+              </q-expansion-item> -->
 
               <!-- INVENTARIO -->
               <q-expansion-item
@@ -134,7 +134,7 @@
                   @click="URL('/proveedores')"
                 >
                   <q-item-section avatar>
-                    <q-icon name="info" />
+                    <q-icon name="assignment_ind" />
                   </q-item-section>
                   <q-item-section>
                     <q-item-label>Proveedores</q-item-label>
@@ -149,7 +149,7 @@
                   @click="URL('/facturas')"
                 >
                   <q-item-section avatar>
-                    <q-icon name="info" />
+                    <q-icon name="assignment_turned_in" />
                   </q-item-section>
                   <q-item-section>
                     <q-item-label>Facturas</q-item-label>
@@ -161,7 +161,7 @@
               <q-expansion-item
                 class="q-ma-sm navigation-item"
                 expand-separator
-                icon="accessibility"
+                icon="add_shopping_cart"
                 label="Venta"
                 :content-inset-level="0.5"
               >

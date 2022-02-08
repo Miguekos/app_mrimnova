@@ -5,7 +5,23 @@ export const headTableProducto = [
     },
     {
       name: "name",
-      label: "Nombre",
+      label: "Nombres",
+    },
+    {
+      name: "code",
+      label: "Codigo",
+    },
+    {
+      name: "purchase_cost",
+      label: "Precio Compra ./S",
+    },
+    {
+      name: "cost",
+      label: "Precio Venta ./S",
+    },
+    {
+      name: "quantity",
+      label: "Cant.",
     },
     {
       name: "accion",
