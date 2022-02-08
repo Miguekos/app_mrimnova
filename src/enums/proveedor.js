@@ -12,6 +12,10 @@ export const headTableProveedor = [
     label: "Nombre",
   },
   {
+    name: "address_main",
+    label: "Direccion",
+  },
+  {
     name: "accion",
     align: "right",
     label: "Acciones",

@@ -4,9 +4,17 @@ export const headTableFactura = [
     label: "Código",
   },
   {
-    name: "label_document",
-    label: "Tipo de pedido",
+    name: "proveedor_name",
+    label: "Proveedor",
   },
+  {
+    name: "label_document",
+    label: "Tipo de documento",
+  },
+  {
+    name: "created_parse",
+    label: "Creado",
+  },  
   {
     name: "accion",
     align: "right",
