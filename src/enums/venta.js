@@ -15,6 +15,10 @@ export const headTableVenta = [
     label: "Dirección de la venta",
   },
   {
+    name: "date_received_parse",
+    label: "Fecha",
+  },
+  {
     name: "accion",
     align: "right",
     label: "Acciones",

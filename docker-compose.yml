@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: "2"
+services:
+  www:
+    image: miguekos1233/app_mrimnova:1.0
+    restart: always
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=mradmin.apps.com.pe,www.mradmin.apps.com.pe
+      - LETSENCRYPT_HOST=mradmin.apps.com.pe,www.mradmin.apps.com.pe
+      - LETSENCRYPT_EMAIL=miguekos1233@gmail.com
+
+networks:
+  default:
+    external:
+      name: nginx-proxy_default
